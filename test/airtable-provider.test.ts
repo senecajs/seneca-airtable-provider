@@ -108,7 +108,7 @@ async function makeSeneca() {
     })
     .use('provider', {
       provider: {
-        Airtable: {
+        airtable: {
           keys: {
             accesstoken: { value: '$AIRTABLE_ACCESSTOKEN' },
           },
