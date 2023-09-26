@@ -149,7 +149,7 @@ function AirtableProvider(options) {
     seneca.prepare(async function () {
         let res = await this.post('sys:provider,get:keymap,provider:airtable,key:accesstoken');
         let token = res.keymap.accesstoken.value;
-        this.shared.sdk = new Airtable({ token });
+        this.shared.sdk = new Airtable({ apiKey: token });
     });
     return {
         exports: {
