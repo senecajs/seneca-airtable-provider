@@ -1,6 +1,6 @@
 {
   "name": "@seneca/airtable-provider",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "main": "dist/airtable-provider.js",
   "type": "commonjs",
   "types": "dist/airtable-provider.d.ts",
