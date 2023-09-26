@@ -161,7 +161,7 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
 
     let token = res.keymap.accesstoken.value
 
-    this.shared.sdk = new Airtable({ token })
+    this.shared.sdk = new Airtable({ apiKey: token })
   })
 
   return {
