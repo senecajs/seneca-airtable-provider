@@ -1,25 +1,26 @@
 {
-  "name": "@seneca/webflow-provider",
+  "name": "@seneca/airtable-provider",
   "version": "0.1.2",
-  "main": "dist/webflow-provider.js",
+  "main": "dist/airtable-provider.js",
   "type": "commonjs",
-  "types": "dist/webflow-provider.d.ts",
-  "description": "Seneca entity provider for the Webflow CMS API.",
-  "homepage": "https://github.com/senecajs/seneca-webflow-provider",
+  "types": "dist/airtable-provider.d.ts",
+  "description": "Seneca entity provider for the Airtable API.",
+  "homepage": "https://github.com/senecajs/seneca-airtable-provider",
   "keywords": [
     "seneca",
-    "webflow",
-    "webflow-provider",
+    "airtable",
+    "airtable-provider",
     "cms"
   ],
   "author": "Richard Rodger - richardrodger.com",
   "contributors": [
     "Ríona Stokes https://github.com/rionastokes",
-    "Richard Rodger - richardrodger.com"
+    "Richard Rodger - richardrodger.com",
+    "Zack Braksa - zackbraksa.com"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/senecajs/seneca-webflow-provider.git"
+    "url": "git://github.com/senecajs/seneca-airtable-provider.git"
   },
   "scripts": {
     "test": "jest --coverage",
@@ -46,7 +47,7 @@
   },
   "dependencies": {
     "@seneca/maintain": "^0.0.27",
-    "webflow-api": "^1.2.2"
+    "airtable": "^0.12.2"
   },
   "peerDependencies": {
     "@seneca/env": ">=0.2",
