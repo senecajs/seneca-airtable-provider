@@ -1,9 +1,9 @@
-![Seneca Webflow-Provider](http://senecajs.org/files/assets/seneca-logo.png)
+![Seneca Airtable-Provider](http://senecajs.org/files/assets/seneca-logo.png)
 
-> _Seneca Webflow-Provider_ is a plugin for [Seneca](http://senecajs.org)
+> _Seneca Airtable-Provider_ is a plugin for [Seneca](http://senecajs.org)
 
-Provides access to the Webflow CMS API using the Seneca _provider_
-convention. Webflow CMS API entities are represented as Seneca entities so
+Provides access to the Airtable CMS API using the Seneca _provider_
+convention. Airtable CMS API entities are represented as Seneca entities so
 that they can be accessed using the Seneca entity API and messages.
 
 See [seneca-entity](senecajs/seneca-entity) and the [Seneca Data
@@ -60,7 +60,7 @@ Console.log('UPDATED BOARD', board)
 ## Install
 
 ```sh
-$ npm install @seneca/webflow-provider @seneca/env
+$ npm install @seneca/airtable-provider @seneca/env
 ```
 
 ## How to get access
