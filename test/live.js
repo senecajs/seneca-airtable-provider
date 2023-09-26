@@ -1,31 +1,31 @@
-const Seneca = require('seneca')
+const Seneca = require("seneca");
 
 Seneca({ legacy: false })
   .test()
-  .use('promisify')
-  .use('entity')
-  .use('env', {
+  .use("promisify")
+  .use("entity")
+  .use("env", {
     // debug: true,
-    file: [__dirname + '/local-env.js;?'],
+    file: [__dirname + "/local-env.js;?"],
     var: {
-      $WEBFLOW_ACCESSTOKEN: String,
+      $AIRTABLE_ACCESSTOKEN: String,
     },
   })
-  .use('provider', {
+  .use("provider", {
     provider: {
-      webflow: {
+      airtable: {
         keys: {
-          accesstoken: { value: '$WEBFLOW_ACCESSTOKEN' },
+          accesstoken: { value: "$AIRTABLE_ACCESSTOKEN" },
         },
       },
     },
   })
-  .use('../')
+  .use("../")
   .ready(async function () {
-    const seneca = this
+    const seneca = this;
 
-    console.log(await seneca.post('sys:provider,provider:webflow,get:info'))
+    console.log(await seneca.post("sys:provider,provider:airtable,get:info"));
 
-    const list = await seneca.entity('provider/webflow/site').list$()
-    console.log(list.slice(0, 3))
-  })
+    const list = await seneca.entity("provider/airtable/site").list$();
+    console.log(list.slice(0, 3));
+  });

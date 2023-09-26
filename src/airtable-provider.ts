@@ -2,32 +2,32 @@
 
 const Pkg = require('../package.json')
 
-const Webflow = require('webflow-api')
+const Airtable = require('airtable')
 
-type WebflowProviderOptions = {}
+type AirtableProviderOptions = {}
 
-function WebflowProvider(this: any, options: WebflowProviderOptions) {
+function AirtableProvider(this: any, options: AirtableProviderOptions) {
   const seneca: any = this
 
   const entityBuilder = this.export('provider/entityBuilder')
 
-  seneca.message('sys:provider,provider:webflow,get:info', get_info)
+  seneca.message('sys:provider,provider:airtable,get:info', get_info)
 
   async function get_info(this: any, _msg: any) {
     return {
       ok: true,
-      name: 'webflow',
+      name: 'airtable',
       version: Pkg.version,
       sdk: {
-        name: 'webflow',
-        version: Pkg.dependencies['webflow-api'],
+        name: 'airtable',
+        version: Pkg.dependencies['airtable'],
       },
     }
   }
 
   entityBuilder(this, {
     provider: {
-      name: 'webflow',
+      name: 'airtable',
     },
     entity: {
       site: {
@@ -156,12 +156,12 @@ function WebflowProvider(this: any, options: WebflowProviderOptions) {
 
   seneca.prepare(async function (this: any) {
     let res = await this.post(
-      'sys:provider,get:keymap,provider:webflow,key:accesstoken'
+      'sys:provider,get:keymap,provider:airtable,key:accesstoken'
     )
 
     let token = res.keymap.accesstoken.value
 
-    this.shared.sdk = new Webflow({ token })
+    this.shared.sdk = new Airtable({ token })
   })
 
   return {
@@ -172,15 +172,15 @@ function WebflowProvider(this: any, options: WebflowProviderOptions) {
 }
 
 // Default options.
-const defaults: WebflowProviderOptions = {
+const defaults: AirtableProviderOptions = {
   // TODO: Enable debug logging
   debug: false,
 }
 
-Object.assign(WebflowProvider, { defaults })
+Object.assign(AirtableProvider, { defaults })
 
-export default WebflowProvider
+export default AirtableProvider
 
 if ('undefined' !== typeof module) {
-  module.exports = WebflowProvider
+  module.exports = AirtableProvider
 }

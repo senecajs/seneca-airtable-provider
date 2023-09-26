@@ -1,15 +1,15 @@
-const Webflow = require('webflow-api')
-const token = require('./local-env').WEBFLOW_ACCESSTOKEN
+const Airtable = require("airtable-api");
+const token = require("./local-env").AIRTABLE_ACCESSTOKEN;
 
-run()
+run();
 
 async function run() {
   // initialize the client with the access token
-  const webflow = new Webflow({ token })
+  const airtable = new Airtable({ token });
 
-  const col = await webflow.collection({
-    collectionId: '',
-  })
-  const colItems = await col.items()
-  console.log(colItems)
+  const col = await airtable.collection({
+    collectionId: "",
+  });
+  const colItems = await col.items();
+  console.log(colItems);
 }

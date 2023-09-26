@@ -1,3 +1,3 @@
 module.exports = {
-  WEBFLOW_TOKEN: '<TOKEN>',
-}
+  AIRTABLE_TOKEN: "<TOKEN>",
+};
