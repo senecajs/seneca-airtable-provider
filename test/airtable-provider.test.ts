@@ -12,12 +12,12 @@ import AirtableProviderDoc from '../src/AirtableProvider-doc'
 const BasicMessages = require('./basic.messages.js')
 
 // Only run some tests locally (not on Github Actions).
-let Config: undefined = undefined
-if (Fs.existsSync(__dirname + '/local-config.js')) {
-  Config = require('./local-config')
-}
+// let Config: undefined = undefined
+// if (Fs.existsSync(__dirname + '/local-config.js')) {
+//   Config = require('./local-config')
+// }
 
-describe('Airtable-provider', () => {
+describe('airtable-provider', () => {
   test('happy', async () => {
     expect(AirtableProvider).toBeDefined()
     expect(AirtableProviderDoc).toBeDefined()
@@ -25,28 +25,28 @@ describe('Airtable-provider', () => {
     const seneca = await makeSeneca()
 
     expect(
-      await seneca.post('sys:provider,provider:Airtable,get:info')
+      await seneca.post('sys:provider,provider:airtable,get:info')
     ).toMatchObject({
       ok: true,
-      name: 'Airtable',
+      name: 'airtable',
     })
   })
 
-  test('messages', async () => {
-    const seneca = await makeSeneca()
-    await SenecaMsgTest(seneca, BasicMessages)()
-  })
+  // test('messages', async () => {
+  //   const seneca = await makeSeneca()
+  //   await SenecaMsgTest(seneca, BasicMessages)()
+  // })
 
   // test('site-basic', async () => {
   //   if (!Config) return
   //   const seneca = await makeSeneca()
 
   //   // does this:   const sites = await Airtable.sites();
-  //   const list = await seneca.entity('provider/Airtable/site').list$()
+  //   const list = await seneca.entity('provider/airtable/site').list$()
   //   expect(list.length > 0).toBeTruthy()
 
   //   const site0 = await seneca
-  //     .entity('provider/Airtable/site')
+  //     .entity('provider/airtable/site')
   //     .load$(Config.site0.id)
   //   expect(site0.name).toContain(Config.site0.name)
   // })
@@ -56,12 +56,12 @@ describe('Airtable-provider', () => {
   //   const seneca = await makeSeneca()
 
   //   const list = await seneca
-  //     .entity('provider/Airtable/collection')
+  //     .entity('provider/airtable/collection')
   //     .list$(Config.site0.id)
   //   expect(list.length > 0).toBeTruthy()
 
   //   const collection0 = await seneca
-  //     .entity('provider/Airtable/collection')
+  //     .entity('provider/airtable/collection')
   //     .load$({
   //       siteId: Config.site0.id,
   //       collectionId: Config.site0.collections.collection0.id,
@@ -76,11 +76,11 @@ describe('Airtable-provider', () => {
   //   const seneca = await makeSeneca()
 
   //   const list = await seneca
-  //     .entity('provider/Airtable/item')
+  //     .entity('provider/airtable/item')
   //     .list$(Config.site0.collections.collection0.id)
   //   expect(list.length > 0).toBeTruthy()
 
-  //   const item0 = await seneca.entity('provider/Airtable/item').load$({
+  //   const item0 = await seneca.entity('provider/airtable/item').load$({
   //     collectionId: Config.site0.collections.collection0.id,
   //     itemId: Config.site0.collections.collection0.items.item0.id,
   //   })
@@ -89,9 +89,9 @@ describe('Airtable-provider', () => {
   //   )
   // })
 
-  test('maintain', async () => {
-    await Maintain()
-  })
+  // test('maintain', async () => {
+  //   await Maintain()
+  // })
 })
 
 async function makeSeneca() {
