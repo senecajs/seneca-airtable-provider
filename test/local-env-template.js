@@ -1,3 +1,3 @@
 module.exports = {
-  AIRTABLE_TOKEN: "<TOKEN>",
+  AIRTABLE_ACCESSTOKEN: "<TOKEN>",
 };
