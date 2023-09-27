@@ -1,7 +1,10 @@
-type AirtableProviderOptions = {};
+type AirtableProviderOptions = {
+    url: string;
+    fetch: any;
+    entity: Record<string, any>;
+    debug: boolean;
+};
 declare function AirtableProvider(this: any, options: AirtableProviderOptions): {
-    exports: {
-        sdk: () => any;
-    };
+    exports: {};
 };
 export default AirtableProvider;
