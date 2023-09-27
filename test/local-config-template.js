@@ -1,5 +1,8 @@
 module.exports = {
-  site0: {
-    id: '<SITE-ID>',
+  base0: {
+    id: "<BASE-ID>",
   },
-}
+  table0: {
+    id: "<TABLE-ID>",
+  },
+};
