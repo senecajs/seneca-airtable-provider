@@ -124,6 +124,20 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
               return list
             },
           },
+          load: {
+            action: async function (this: any, entize: any, msg: any) {
+              let q = msg.q || {}
+              let baseId = q.baseId
+              let tableId = q.tableId
+              let recordId = q.recordId
+
+              let json: any =
+                await getJSON(makeUrl(`${baseId}/${tableId}/${recordId}`, msg.q), makeConfig())
+
+              let record = json
+              return entize(record)
+            },
+          },
         }
       }
 

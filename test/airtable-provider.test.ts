@@ -115,6 +115,16 @@ test('record-list', async () => {
   expect(records.length > 0).toBeTruthy()
 })
 
+// checks that record.load$() works
+test.only('record-load', async () => {
+  if (!Config) return
+  const seneca = await makeSeneca()
+
+  const record = await seneca.entity('provider/airtable/record').load$({ baseId: Config.base0.id, tableId: Config.table0.id, recordId: Config.record0.id })
+
+  expect(record.id).toBe(Config.record0.id)
+})
+
 async function makeSeneca() {
   const seneca = Seneca({ legacy: false })
     .test()
