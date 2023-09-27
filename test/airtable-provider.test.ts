@@ -105,6 +105,16 @@ describe('airtable-provider', () => {
   })
 })
 
+// checks that table.list$() works
+test('record-list', async () => {
+  if (!Config) return
+  const seneca = await makeSeneca()
+
+  const records = await seneca.entity('provider/airtable/record').list$({ baseId: Config.base0.id, tableId: Config.table0.id })
+
+  expect(records.length > 0).toBeTruthy()
+})
+
 async function makeSeneca() {
   const seneca = Seneca({ legacy: false })
     .test()

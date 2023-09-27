@@ -54,7 +54,7 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
           list: {
             action: async function (this: any, entize: any, msg: any) {
               let json: any =
-                await getJSON(makeUrl('bases', msg.q), makeConfig())
+                await getJSON(makeUrl('meta/bases', msg.q), makeConfig())
               let res = json
               let list = res.bases.map((data: any) => entize(data))
               return list
@@ -63,6 +63,7 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
 
         },
       },
+
       table: {
         cmd: {
           list: {
@@ -71,7 +72,7 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
               let baseId = q.baseId
 
               let json: any =
-                await getJSON(makeUrl(`bases/${baseId}/tables`, msg.q), makeConfig())
+                await getJSON(makeUrl(`meta/bases/${baseId}/tables`, msg.q), makeConfig())
               let tables = json.tables
               let list = tables.map((data: any) => entize(data))
               // TODO: ensure seneca-transport preserves array props
@@ -93,15 +94,36 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
               delete body.baseId; //Todo: See how to better handle this
 
               let json: any =
-                await postJSON(makeUrl(`bases/${baseId}/tables`, msg.q), makeConfig({
+                await postJSON(makeUrl(`meta/bases/${baseId}/tables`, msg.q), makeConfig({
                   body
                 }))
 
               let table = json
-              console.log("table", table)
               return entize(table)
             },
           }
+        }
+      },
+
+      record: {
+        cmd: {
+          list: {
+            action: async function (this: any, entize: any, msg: any) {
+              let q = msg.q || {}
+              let baseId = q.baseId
+              let tableId = q.tableId
+
+              let json: any =
+                await getJSON(makeUrl(`${baseId}/${tableId}`, msg.q), makeConfig())
+
+              let records = json.records
+              let list = records.map((data: any) => entize(data))
+              // TODO: ensure seneca-transport preserves array props
+              list.offset = json.offset
+
+              return list
+            },
+          },
         }
       }
 
@@ -139,7 +161,7 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
 // Default options.
 const defaults: AirtableProviderOptions = {
   // NOTE: include trailing /
-  url: 'https://api.airtable.com/v0/meta/',
+  url: 'https://api.airtable.com/v0/',
 
   // Use global fetch by default - if exists
   fetch: ('undefined' === typeof fetch ? undefined : fetch),
