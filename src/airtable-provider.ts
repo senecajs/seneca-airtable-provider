@@ -138,6 +138,30 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
               return entize(record)
             },
           },
+          save: {
+            action: async function (this: any, entize: any, msg: any) {
+              let q = msg.q || {}
+              let baseId = q.baseId
+              let tableId = q.tableId
+
+              let body = this.util.deep(
+                options.entity.table.save,
+                msg.ent.data$(false)
+              )
+
+              delete body.baseId; //Todo: See how to better handle this
+              delete body.tableId; //Todo: See how to better handle this
+
+              let json: any =
+                await postJSON(makeUrl(`${baseId}/${tableId}`, msg.q), makeConfig({
+                  body
+                }))
+
+              let records = json.records
+              let list = records.map((data: any) => entize(data))
+              return list
+            },
+          }
         }
       }
 

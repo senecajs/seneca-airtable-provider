@@ -116,7 +116,7 @@ test('record-list', async () => {
 })
 
 // checks that record.load$() works
-test.only('record-load', async () => {
+test('record-load', async () => {
   if (!Config) return
   const seneca = await makeSeneca()
 
@@ -124,6 +124,39 @@ test.only('record-load', async () => {
 
   expect(record.id).toBe(Config.record0.id)
 })
+
+// checks that record.save$() works
+test('record-save', async () => {
+  if (!Config) return
+  const seneca = await makeSeneca()
+
+  let records = seneca.entity('provider/airtable/record').data$({
+    records: [
+      {
+        fields: {
+          Name: "Union Square",
+        }
+      },
+      {
+        fields: {
+          Name: "Ferry Building"
+        }
+      }
+    ]
+  })
+
+  try {
+    records = await records.save$({ baseId: Config.base0.id, tableId: Config.table0.id })
+  }
+  catch (e) {
+    console.log(e.message)
+    console.log(e.status)
+    console.log(e.body)
+  }
+
+  expect(records.length == 2).toBeTruthy()
+})
+
 
 async function makeSeneca() {
   const seneca = Seneca({ legacy: false })
