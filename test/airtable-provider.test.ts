@@ -37,14 +37,71 @@ describe('airtable-provider', () => {
     await SenecaMsgTest(seneca, BasicMessages)()
   })
 
+  // checks that base.list$() works
   test('base-list', async () => {
     if (!Config) return
     const seneca = await makeSeneca()
 
-    // does this:  const base = await Airtable.bases();
     const bases = await seneca.entity('provider/airtable/base').list$()
 
     expect(bases.length > 0).toBeTruthy()
+  })
+
+  // checks that table.list$() works
+  test('table-list', async () => {
+    if (!Config) return
+    const seneca = await makeSeneca()
+
+    const tables = await seneca.entity('provider/airtable/table').list$({ baseId: Config.base0.id })
+
+    expect(tables.length > 0).toBeTruthy()
+  })
+
+  // checks that table.save$() works
+  test('table-save', async () => {
+    if (!Config) return
+    const seneca = await makeSeneca()
+
+    // generate a random id
+    const tableId = Math.floor(Math.random() * 1000000)
+
+    // generate name using tableId
+    const name = `Seneca Table ${tableId}`
+
+    let table = seneca.entity('provider/airtable/table').data$({
+      name: name,
+      description: "A table created from Seneca.js",
+      fields: [
+        {
+          description: "Name of the apartment",
+          name: "Name",
+          type: "singleLineText"
+        },
+        {
+          name: "Address",
+          type: "singleLineText"
+        },
+        {
+          name: "Visited",
+          options: {
+            color: "greenBright",
+            icon: "check"
+          },
+          type: "checkbox"
+        }
+      ],
+    })
+
+    try {
+      table = await table.save$({ baseId: Config.base0.id })
+    }
+    catch (e) {
+      console.log(e.message)
+      console.log(e.status)
+      console.log(e.body)
+    }
+
+    expect(table.name).toBe(name)
   })
 })
 

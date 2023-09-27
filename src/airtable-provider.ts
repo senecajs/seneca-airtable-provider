@@ -63,6 +63,47 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
 
         },
       },
+      table: {
+        cmd: {
+          list: {
+            action: async function (this: any, entize: any, msg: any) {
+              let q = msg.q || {}
+              let baseId = q.baseId
+
+              let json: any =
+                await getJSON(makeUrl(`bases/${baseId}/tables`, msg.q), makeConfig())
+              let tables = json.tables
+              let list = tables.map((data: any) => entize(data))
+              // TODO: ensure seneca-transport preserves array props
+              list.page = json.page
+
+              return list
+            },
+          },
+          save: {
+            action: async function (this: any, entize: any, msg: any) {
+              let q = msg.q || {}
+              let baseId = q.baseId
+
+              let body = this.util.deep(
+                options.entity.table.save,
+                msg.ent.data$(false)
+              )
+
+              delete body.baseId; //Todo: See how to better handle this
+
+              let json: any =
+                await postJSON(makeUrl(`bases/${baseId}/tables`, msg.q), makeConfig({
+                  body
+                }))
+
+              let table = json
+              console.log("table", table)
+              return entize(table)
+            },
+          }
+        }
+      }
 
     },
   })
@@ -82,8 +123,8 @@ function AirtableProvider(this: any, options: AirtableProviderOptions) {
     }
 
     // this.shared.primary = {
-    //   customerIdentifier: res.keymap.cust.value,
-    //   accountIdentifier: res.keymap.acc.value,
+    //   name: res.keymap.name.value,
+    //   description: res.keymap.description.value,
     // }
 
   })
@@ -104,6 +145,11 @@ const defaults: AirtableProviderOptions = {
   fetch: ('undefined' === typeof fetch ? undefined : fetch),
 
   entity: {
+    table: {
+      save: {
+        // Default fields
+      }
+    },
     record: {
       save: {
         // Default fields
