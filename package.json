@@ -46,8 +46,7 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@seneca/maintain": "^0.0.27",
-    "airtable": "^0.12.2"
+    "@seneca/maintain": "^0.0.27"
   },
   "peerDependencies": {
     "@seneca/env": ">=0.2",
