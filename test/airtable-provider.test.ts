@@ -105,7 +105,7 @@ describe('airtable-provider', () => {
   })
 })
 
-// checks that table.list$() works
+// checks that record.list$() works
 test('record-list', async () => {
   if (!Config) return
   const seneca = await makeSeneca()
