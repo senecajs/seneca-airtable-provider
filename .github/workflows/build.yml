@@ -13,7 +13,7 @@ jobs:
   build:
     environment: test
     env:
-      WEBFLOW_APIKEY: ${{secrets.WEBFLOW_APIKEY}}
+      AIRTABLE_APIKEY: ${{secrets.AIRTABLE_APIKEY}}
 
     timeout-minutes: 6
 

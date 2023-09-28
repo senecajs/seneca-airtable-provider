@@ -1,31 +1,35 @@
-const Seneca = require('seneca')
+// IMPORTANT: assumes node-fetch@2
+const Fetch = require("node-fetch");
+
+const Seneca = require("seneca");
+
+// global.fetch = Fetch
 
 Seneca({ legacy: false })
   .test()
-  .use('promisify')
-  .use('entity')
-  .use('env', {
+  .use("promisify")
+  .use("entity")
+  .use("env", {
     // debug: true,
-    file: [__dirname + '/local-env.js;?'],
+    file: [__dirname + "/local-env.js;?"],
     var: {
-      $WEBFLOW_ACCESSTOKEN: String,
+      $AIRTABLE_ACCESSTOKEN: String,
     },
   })
-  .use('provider', {
+  .use("provider", {
     provider: {
-      webflow: {
+      airtable: {
         keys: {
-          accesstoken: { value: '$WEBFLOW_ACCESSTOKEN' },
+          accesstoken: { value: "$AIRTABLE_ACCESSTOKEN" },
         },
       },
     },
   })
-  .use('../')
+  .use("../")
   .ready(async function () {
-    const seneca = this
-
-    console.log(await seneca.post('sys:provider,provider:webflow,get:info'))
-
-    const list = await seneca.entity('provider/webflow/site').list$()
-    console.log(list.slice(0, 3))
-  })
+    const seneca = this;
+    console.log(await seneca.post("sys:provider,provider:airtable,get:info"));
+    // list bases
+    const bases = await seneca.entity("provider/airtable/base").list$();
+    console.log("bases", bases.length);
+  });

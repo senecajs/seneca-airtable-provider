@@ -2,7 +2,7 @@
 
 const docs = {
   get_info: {
-    desc: 'Get information about the Webflow SDK.',
+    desc: 'Get information about the Airtable SDK.',
   },
 }
 

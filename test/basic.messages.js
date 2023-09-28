@@ -1,20 +1,20 @@
 /* Copyright © 2022 Seneca Project Contributors, MIT License. */
 
-const Pkg = require('../package.json')
+const Pkg = require("../package.json");
 
 module.exports = {
   print: false,
-  pattern: 'sys:provider,provider:webflow',
+  pattern: "sys:provider,provider:airtable",
   allow: { missing: true },
 
   calls: [
     {
-      pattern: 'get:info',
+      pattern: "get:info",
       out: {
         ok: true,
-        name: 'webflow',
+        name: "airtable",
         version: Pkg.version,
       },
     },
   ],
-}
+};
